@@ -7,13 +7,13 @@ public class ChangelingTemplate : CharTemplate
     private string needle;
     private string thread;
     private Seeming seeming;
-    private Kith kith;
+    private string kith;
     private Court court;
 
     public override void CreateCharacter()
     {
+        SetRandomPriority();
         base.CreateCharacter();
-
         SetNeedle();
         SetThread();
         SetName();
@@ -179,7 +179,207 @@ public class ChangelingTemplate : CharTemplate
     }
     private void SetKith()
     {
-        //TODO
+        kith = seeming switch
+        {
+            Seeming.Beast => SetKithBeast(),
+            Seeming.Darkling => SetKithDarkling(),
+            Seeming.Elemental => SetKithElemental(),
+            Seeming.Fairest => SetKithFairest(),
+            Seeming.Ogre => SetKithOgre(),
+            Seeming.Wizened => SetKithWizened(),
+            _ => ""
+        };
+    }
+    private string SetKithBeast()
+    {
+        int rand = Random.Range(1, 25);
+        string toSend = rand switch
+        {
+            1 => "Gristlegrinder",
+            2 => "Helldiver",
+            3 => "Hunterheart",
+            4 => "Playmate",
+            5 => "Climacteric",
+            6 => "Concubus",
+            7 => "Uttervoice",
+            8 => "Polychromatic",
+            9 => "Cloakskin",
+            10 => "Lullsecent",
+            11 => "Riddleseeker",
+            12 => "Librorum",
+            13 => "Reborn",
+            14 => "Stoneflesh",
+            15 => "Airtouched",
+            16 => "Farwalker",
+            17 => "Flickerflash",
+            18 => "Swarmflight",
+            19 => "Swimmerskin",
+            20 => "Beastcaller",
+            21 => "Cyclopean",
+            22 => "Sandharrowed",
+            23 => "Valkyrie",
+            24 => "Gravewright",
+            _ => "Gravewright"
+        };
+
+        return toSend;
+    }
+    private string SetKithDarkling()
+    {
+        int rand = Random.Range(1, 24);
+        string toSend = rand switch
+        {
+            1 => "Chatelaine",
+            2 => "Helldiver",
+            3 => "Leechfinger",
+            4 => "Mirrorskin",
+            5 => "Concubus",
+            6 => "Ghostheart",
+            7 => "Moonborn",
+            8 => "Delver",
+            9 => "Bricoleur",
+            10 => "Cloakskin",
+            11 => "Doppelganger",
+            12 => "Lethipomp",
+            13 => "Lullsecent",
+            14 => "Riddleseeker",
+            15 => "Sideromancer",
+            16 => "Spiegelbild ",
+            17 => "Chalomot",
+            18 => "Swarmflight",
+            19 => "Razorhand",
+            20 => "Apoptsome",
+            21 => "Becquerel",
+            22 => "Whisperwisp",
+            23 => "Cleverquick",
+            _ => "Cleverquick"
+        };
+        return toSend;
+    }
+    private string SetKithElemental()
+    {
+        int rand = Random.Range(1, 28);
+        string toSend = rand switch
+        {
+            1 => "Bright One",
+            2 => "Mirrorskin",
+            3 => "Notary",
+            4 => "Snowskin",
+            5 => "Flowering",
+            6 => "Uttervoice",
+            7 => "Delver",
+            8 => "Glimmerwisp",
+            9 => "Veneficus",
+            10 => "Lethipomp",
+            11 => "Asclepian",
+            12 => "Bridgeguard",
+            13 => "Librorum",
+            14 => "Liminal",
+            15 => "Stoneflesh",
+            16 => "Airtouched",
+            17 => "Chevalier",
+            18 => "Flickerflash",
+            19 => "Levinquick",
+            20 => "Bearskin",
+            21 => "Beastcaller",
+            22 => "Plaguesmith",
+            23 => "Sandharrowed",
+            24 => "Venombite",
+            25 => "Enkrateia",
+            26 => "Shadowsoul",
+            27 => "Telluric",
+            _ => "Telluric"
+        };
+        return toSend;
+    }
+    private string SetKithFairest()
+    {
+        int rand = Random.Range(1, 25);
+        string toSend = rand switch
+        {
+            1 => "BrightOne",
+            2 => "Chatelaine",
+            3 => "Nightsinger",
+            4 => "Playmate",
+            5 => "Absinthal",
+            6 => "Draconic",
+            7 => "Flowering",
+            8 => "Manikin",
+            9 => "Oculus",
+            10 => "Polychromatic",
+            11 => "Witchtooth",
+            12 => "Spiegelbild",
+            13 => "Bridgeguard",
+            14 => "Wisewitch",
+            15 => "Levinquick",
+            16 => "Swimmerskin",
+            17 => "Plaguesmith",
+            18 => "Razorhand",
+            19 => "Valkyrie",
+            20 => "Blightbent",
+            21 => "Enkrateia",
+            22 => "Shadowsoul",
+            23 => "Telluric",
+            24 => "Whisperwisp",
+            _ => "Whisperwisp"
+        };
+        return toSend;
+    }
+    private string SetKithOgre()
+    {
+        int rand = Random.Range(1, 17);
+        string toSend = rand switch
+        {
+            1 => "Artist",
+            2 => "Gristlegrinder",
+            3 => "Hunterheart",
+            4 => "Snowskin",
+            5 => "Draconic",
+            6 => "Ghostheart",
+            7 => "Gremlin",
+            8 => "Doppelganger",
+            9 => "Sideromancer",
+            10 => "Liminal",
+            11 => "Wisewitch",
+            12 => "Farwalker",
+            13 => "Cyclopean",
+            14 => "Apoptsome",
+            15 => "Becquerel",
+            16 => "Cleverquick",
+            _ => "Cleverquick"
+        };
+        return toSend;
+    }
+    private string SetKithWizened()
+    {
+        int rand = Random.Range(1, 23);
+        string toSend = rand switch
+        {
+            1 => "Artist",
+            2 => "Leechfinger",
+            3 => "Nightsinger",
+            4 => "Notary",
+            5 => "Absinthal",
+            6 => "Climacteric",
+            7 => "Moonborn",
+            8 => "Glimmerwisp",
+            9 => "Gremlin",
+            10 => "Manikin",
+            11 => "Oculus",
+            12 => "Veneficus",
+            13 => "Witchtooth",
+            14 => "Bricoleur",
+            15 => "Asclepian",
+            16 => "Reborn",
+            17 => "Chalomot",
+            18 => "Chevalier",
+            19 => "Bearskin",
+            20 => "Venombite",
+            21 => "Blightbent",
+            22 => "Gravewright",
+            _ => "Gravewright"
+        };
+        return toSend;
     }
     private void SetCourt(int sect = 0)
     {
@@ -219,7 +419,7 @@ public class ChangelingTemplate : CharTemplate
     {
         return seeming;
     }
-    public Kith GetKith()
+    public string GetKith()
     {
         return kith;
     }
@@ -236,5 +436,5 @@ public class ChangelingTemplate : CharTemplate
     #endregion
 }
 public enum Seeming { Beast, Darkling, Elemental, Fairest, Ogre, Wizened }
-public enum Kith { }
+
 public enum Court { Spring, Summer, Autumn, Winter }
