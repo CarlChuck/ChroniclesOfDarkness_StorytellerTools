@@ -361,9 +361,9 @@ public class CityGenerator : MonoBehaviour
 
             TextWriter tw = new StreamWriter(filename, false);
             tw.WriteLine("Name, Gender, Embrace, Age, Clan, Bloodline, Covenant, Mask, Dirge, City, Strength, Dexterity, Stamina, Presence, Manipulation, Composure, " +
-                "Intelligence, Wits, Resolve, Potency, Willpower, Humanity, Size, Initiative, Speed, Defence, Health, Athletics, Brawl, Drive, Firearm, Larceny, Stealth, Survival, " +
-                "Weaponry, Animal Ken, Empathy, Expression, Intimidation, Persuasion, Socialise, Streetwise, Subterfuge, Academics, Computer, Crafts, Investigation, Medicine, Occult, " +
-                "Politics, Science, Vigor, Celerity, Resilience, Animalism, Obfuscate, Auspex, Dominate, Majesty, Nightmare, Protean, " +
+                "Intelligence, Wits, Resolve, Potency, Willpower, Humanity, Size, Initiative, Speed, Defence, Health, Athletics, Brawl, Drive, Firearm, Larceny, Stealth, " +
+                "Survival, Weaponry, Animal Ken, Empathy, Expression, Intimidation, Persuasion, Socialise, Streetwise, Subterfuge, Academics, Computer, Crafts, Investigation, " +
+                "Medicine, Occult, Politics, Science, Vigor, Celerity, Resilience, Animalism, Obfuscate, Auspex, Dominate, Majesty, Nightmare, Protean, " +
                 "Coils Of The Dragon, Cruac Sorcery, Theban Sorcery, Ahranite Sorcery, Thanatology");
             tw.Close();
             tw = new StreamWriter(filename, true);
@@ -439,11 +439,11 @@ public class CityGenerator : MonoBehaviour
                 tw.WriteLine(vName + "," + gender + "," + embrace + "," + age + "," + clan + "," + bloodline + "," + covenant + "," + mask + "," + dirge + "," + city + ","
                     + strength + "," + dexterity + "," + stamina + "," + presence + "," + manipulation + "," + composure + "," + intelligence + "," + wits + "," + resolve + ","
                     + potency + "," + willpower + "," + humanity + "," + size + "," + initiative + "," + speed + "," + defence + "," + health + ","
-                    + athletics + "," + brawl + "," + drive + "," + firearm + "," + larceny + "," + stealth + "," + survival + "," + weaponry + "," + animalKen + "," + empathy + ","
-                    + expression + "," + intimidation + "," + persuasion + "," + socialise + "," + streetwise + "," + subterfuge + "," + academics + "," + computer + "," + crafts + ","
-                    + investigation + "," + medicine + "," + occult + "," + politics + "," + science + ","
-                    + vigor + "," + celerity + "," + resilience + "," + animalism + "," + obfuscate + "," + auspex + "," + dominate + "," + majesty + "," + nightmare + "," + protean + ","
-                    + coilsOfTheDragon + "," + cruacSorcery + "," + thebanSorcery + "," + ahraniteSorcery + "," + thanatology);
+                    + athletics + "," + brawl + "," + drive + "," + firearm + "," + larceny + "," + stealth + "," + survival + "," + weaponry + "," + animalKen + "," + empathy + "," 
+                    + expression + "," + intimidation + "," + persuasion + "," + socialise + "," + streetwise + "," + subterfuge + "," + academics + "," + computer + "," 
+                    + crafts + "," + investigation + "," + medicine + "," + occult + "," + politics + "," + science + ","
+                    + vigor + "," + celerity + "," + resilience + "," + animalism + "," + obfuscate + "," + auspex + "," + dominate + "," + majesty + "," + nightmare + "," 
+                    + protean + "," + coilsOfTheDragon + "," + cruacSorcery + "," + thebanSorcery + "," + ahraniteSorcery + "," + thanatology);
             }
             tw.Close();
         }
