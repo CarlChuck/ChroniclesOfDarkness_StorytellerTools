@@ -13,16 +13,24 @@ public class GeistTemplate : CharTemplate
 
     public override void CreateCharacter()
     {
+        SetRandomPriority();
         base.CreateCharacter();
-
-
-
+        SetRoot();
+        SetBloom();
+        SetName();
+        SetGeist();
+        SetPotency();
+        AddExperience();
+        UpdateCharacter();
+        GenerateConcept();
         UIManager.Instance.UpdateGeneralUI(TemplateType.Geist);
     }
 
     public void AddGeistTraits(int orderNum = 0)
     {
-
+        SetKreweArchetype(orderNum);
+        SetBurden();
+        SetKrewe();
     }
 
     #region Merits and Experience
@@ -54,6 +62,79 @@ public class GeistTemplate : CharTemplate
     {
         base.GenerateConcept();
     }
+    private void SetRoot()
+    {
+        int rand = Random.Range(1, 11);
+        root = rand switch
+        {
+            1 => "Advocate",
+            2 => "Antihero",
+            3 => "Casual",
+            4 => "Cowl",
+            5 => "Enabler",
+            6 => "Gardner",
+            7 => "Pollyanna",
+            8 => "Saved",
+            9 => "Servant",
+            10 => "Surrogate",
+            _ => "Advocate"
+        };
+    }
+    private void SetBloom()
+    {
+        int rand = Random.Range(1, 11);
+        bloom = rand switch
+        {
+            1 => "Advocate",
+            2 => "Antihero",
+            3 => "Casual",
+            4 => "Cowl",
+            5 => "Enabler",
+            6 => "Gardner",
+            7 => "Pollyanna",
+            8 => "Saved",
+            9 => "Servant",
+            10 => "Surrogate",
+            _ => "Advocate"
+        };
+        if (root == bloom)
+        {
+            SetBloom();
+        }
+    }
+    private void SetGeist()
+    {
+        giestName = Nationality.Instance.GetNameForChar(genderM);
+    }
+    private void SetKreweArchetype(int archNum)
+    {
+        kreweArchetype = archNum switch
+        {
+            1 => KreweArchetype.Furies,
+            2 => KreweArchetype.Mourners,
+            3 => KreweArchetype.Necropolitans,
+            4 => KreweArchetype.Pilgrims,
+            5 => KreweArchetype.Undertakers,
+            _ => KreweArchetype.Furies
+        };
+    }
+    private void SetKrewe()
+    {
+        //TODO
+    }
+    private void SetBurden()
+    {
+        int rand = Random.Range(1, 6);
+        burden = rand switch
+        {
+            1 => Burden.Abiding,
+            2 => Burden.Bereaved,
+            3 => Burden.Hungry,
+            4 => Burden.Kindly,
+            5 => Burden.Vengeful,
+            _ => Burden.Abiding
+        };
+    }
     #endregion
     #region Getters
     public string GetRoot()
@@ -75,6 +156,10 @@ public class GeistTemplate : CharTemplate
     public string GetKrewe()
     {
         return krewe;
+    }
+    public Burden GetBurden()
+    {
+        return burden;
     }
     #endregion
 }

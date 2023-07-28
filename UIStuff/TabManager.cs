@@ -43,6 +43,7 @@ public class TabManager : MonoBehaviour
     [SerializeField] private GameObject deviantButtonTab;
     [SerializeField] private GameObject hunterButtonTab;
     [SerializeField] private GameObject mortalButtonTab;
+    [SerializeField] private GameObject cityButtonTab;
     [SerializeField] private GameObject vampWodTab;
     [SerializeField] private GameObject mageWodTab;
     [SerializeField] private GameObject vampCofdTab;
@@ -144,52 +145,68 @@ public class TabManager : MonoBehaviour
     public void WerewolfButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         wereButtonTab.SetActive(true);
     }
     public void ChangelingButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         changButtonTab.SetActive(true);
     }
     public void GeistButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         geistButtonTab.SetActive(true);
     }
     public void DemonButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         demonButtonTab.SetActive(true);
     }
     public void MummyButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         mummyButtonTab.SetActive(true);
     }
     public void PrometheanButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         prometheanButtonTab.SetActive(true);
     }
     public void BeastButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         beastButtonTab.SetActive(true);
     }
     public void DeviantButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         deviantButtonTab.SetActive(true);
     }
     public void HunterButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         hunterButtonTab.SetActive(true);
     }
     public void MortalButtonActive()
     {
         SetAllButtonsInactive();
+        SetAllTabsInactive();
         mortalButtonTab.SetActive(true);
+    }
+    public void CityButtonActive()
+    {
+        SetAllButtonsInactive();
+        SetAllTabsInactive();
+        cityButtonTab.SetActive(true);
     }
 
     private void SetAllTabsInactive()
@@ -221,6 +238,7 @@ public class TabManager : MonoBehaviour
         mummyButtonTab.SetActive(false);
         mortalButtonTab.SetActive(false);
         hunterButtonTab.SetActive(false);
+        cityButtonTab.SetActive(false);
     }
 
     public void OWoDConversionChange()

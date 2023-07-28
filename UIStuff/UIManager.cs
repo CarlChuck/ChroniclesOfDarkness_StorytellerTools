@@ -108,4 +108,4 @@ public class UIManager : MonoBehaviour
         SetColour();
     }
 }
-public enum TemplateType {Vampire, Mage, Changeling, Werewolf, Demon, Mummy, Geist, Promethean, Beast, Deviant, Hunter, Mortal }
+public enum TemplateType {None, Vampire, Mage, Changeling, Werewolf, Demon, Mummy, Geist, Promethean, Beast, Deviant, Hunter, Mortal }

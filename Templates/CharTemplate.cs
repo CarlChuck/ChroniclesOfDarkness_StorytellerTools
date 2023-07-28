@@ -788,6 +788,60 @@ public class CharTemplate : MonoBehaviour
     {
 
     }
+    public virtual void AddPotency()
+    {
+        int pot = 1;
+        int primAge = age - 15;
+        if (primAge > 5)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        if (primAge > 10)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        if (primAge > 15)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        if (primAge > 20)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        if (primAge > 30)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        if (primAge > 40)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        if (primAge > 50)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        if (primAge > 60)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        if (primAge > 70)
+        {
+            pot += AddChanceOfPotencyIncrease();
+        }
+        SetPotency(pot);
+    }
+    private int AddChanceOfPotencyIncrease()
+    {
+        int rand = Random.Range(1, 3);
+        if (rand == 1)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
     #endregion
     #region Adding Attributes
     public void AddStartingAttributes() 
@@ -1501,6 +1555,10 @@ public class CharTemplate : MonoBehaviour
     public string GetVice()
     {
         return vice;
+    }
+    public int GetPotency()
+    {
+        return potency;
     }
     public CharStat GetHighestSkill()
     {

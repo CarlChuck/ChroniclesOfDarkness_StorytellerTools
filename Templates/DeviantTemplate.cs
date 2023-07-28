@@ -6,19 +6,25 @@ public class DeviantTemplate : CharTemplate
 {
     private Clade clade;
     private Origin origin;
-    private string getForm;
+    private string form;
     public override void CreateCharacter()
     {
+        SetRandomPriority();
         base.CreateCharacter();
-
-
-
+        SetName();
+        SetPotency();
+        AddPotency();
+        AddExperience();
+        UpdateCharacter();
+        GenerateConcept();
         UIManager.Instance.UpdateGeneralUI(TemplateType.Deviant);
     }
 
-    public void AddDeviantTraits(int orderNum = 0, bool isWoD = false)
+    public void AddDeviantTraits(int cladeNum = 0)
     {
-
+        SetClade(cladeNum);
+        SetOrigin();
+        SetForm();
     }
 
     #region Merits and Experience
@@ -50,6 +56,35 @@ public class DeviantTemplate : CharTemplate
     {
         base.GenerateConcept();
     }
+    public void SetClade(int cladeNum)
+    {
+        clade = cladeNum switch
+        {
+            1 => Clade.Cephalist,
+            2 => Clade.Chimeric,
+            3 => Clade.Coactive,
+            4 => Clade.Invasive,
+            5 => Clade.Mutant,
+            _ => Clade.Cephalist
+        };
+    }
+    public void SetOrigin()
+    {
+        int rand = Random.Range(1, 6);
+        origin = rand switch
+        {
+            1 => Origin.Autourgies,
+            2 => Origin.Epimorph,
+            3 => Origin.Exomorph,
+            4 => Origin.Genotypal,
+            5 => Origin.Pathological,
+            _ => Origin.Autourgies
+        };
+    }
+    public void SetForm()
+    {
+        form = "";
+    }
     #endregion
     #region Getters
     public Clade GetClade()
@@ -62,10 +97,8 @@ public class DeviantTemplate : CharTemplate
     }
     public string GetForm()
     {
-        return getForm;
+        return form;
     }
-
-
     #endregion
 }
 public enum Origin { Autourgies, Epimorph, Exomorph, Genotypal, Pathological }

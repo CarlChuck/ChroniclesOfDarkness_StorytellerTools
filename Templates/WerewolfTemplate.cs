@@ -14,11 +14,11 @@ public class WerewolfTemplate : CharTemplate
     {
         SetPriorityByAuspice();
         base.CreateCharacter();
-
         SetBlood();
         SetBone();
         SetName();
         SetPrimalUrge();
+        GenerateRites();
         AddExperience();
         UpdateCharacter();
         GenerateConcept();
@@ -222,6 +222,12 @@ public class WerewolfTemplate : CharTemplate
     public string GetBone()
     {
         return bone;
+    }
+    #endregion
+    #region Rites
+    private void GenerateRites()
+    {
+        //TODO
     }
     #endregion
 }

@@ -15,28 +15,28 @@ public class VampireTemplate : CharTemplate
     private string dirge;
     
     #region Disciplines
-    private CharStat vigor;
-    private CharStat celerity;
-    private CharStat resilience;
+    public CharStat vigor;
+    public CharStat celerity;
+    public CharStat resilience;
 
-    private CharStat animalism;
-    private CharStat obfuscate;
+    public CharStat animalism;
+    public CharStat obfuscate;
 
-    private CharStat auspex;
-    private CharStat dominate;
-    private CharStat majesty;
-    private CharStat nightmare;
-    private CharStat protean;
+    public CharStat auspex;
+    public CharStat dominate;
+    public CharStat majesty;
+    public CharStat nightmare;
+    public CharStat protean;
     #endregion
     #region WoDDiscs
-    private CharStat dementation;
-    private CharStat durAnKiSorcery;
-    private CharStat setiteSorcery;
-    private CharStat thaumaturgy;
-    private CharStat necromancy;
-    private CharStat koldunicSorcery;
-    private CharStat taliesin;
-    private CharStat vodoun;
+    public CharStat dementation;
+    public CharStat durAnKiSorcery;
+    public CharStat setiteSorcery;
+    public CharStat thaumaturgy;
+    public CharStat necromancy;
+    public CharStat koldunicSorcery;
+    public CharStat taliesin;
+    public CharStat vodoun;
     #endregion
     #region BloodlineDiscs
     private CharStat abjurism; //Also WoD
@@ -99,11 +99,11 @@ public class VampireTemplate : CharTemplate
     private CharStat zagovny; //Also WoD
     #endregion
     #region CovenantDiscs
-    private CharStat coilsOfTheDragon;
-    private CharStat cruacSorcery;
-    private CharStat thebanSorcery;
-    private CharStat ahraniteSorcery;
-    private CharStat thanatology;
+    public CharStat coilsOfTheDragon;
+    public CharStat cruacSorcery;
+    public CharStat thebanSorcery;
+    public CharStat ahraniteSorcery;
+    public CharStat thanatology;
     #endregion
     private List<CharStat> listOfAllDisciplines;
     private List<CharStat> listOfCommonDisciplines;

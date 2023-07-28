@@ -311,6 +311,7 @@ public class UICharSheet : MonoBehaviour
     }
     public void AddGeistTextFields(GeistTemplate cTemplate)
     {
+        playerName.text = cTemplate.GetBurden().ToString();
         virtue.text = cTemplate.GetRoot();
         vice.text = cTemplate.GetBloom();
         concept.text = cTemplate.GetConcept();
@@ -329,7 +330,7 @@ public class UICharSheet : MonoBehaviour
     }
     public void AddPrometheanTextFields(PrometheanTemplate cTemplate)
     {
-        virtue.text = cTemplate.GetElips();
+        virtue.text = cTemplate.GetElpis();
         vice.text = cTemplate.GetTorment();
         concept.text = cTemplate.GetConcept();
         text1.text = cTemplate.GetLineage().ToString();

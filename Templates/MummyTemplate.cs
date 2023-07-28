@@ -12,16 +12,23 @@ public class MummyTemplate : CharTemplate
 
     public override void CreateCharacter()
     {
+        SetRandomPriority();
         base.CreateCharacter();
-
-
-
+        SetBalance();
+        SetBurden();
+        SetName();
+        SetPotency();
+        AddExperience();
+        UpdateCharacter();
+        GenerateConcept();
         UIManager.Instance.UpdateGeneralUI(TemplateType.Mummy);
     }
 
-    public void AddMummyTraits(int orderNum = 0)
+    public void AddMummyTraits(int guildNum = 0)
     {
-
+        SetGuild(guildNum);
+        SetJudge();
+        SetDecree();
     }
 
     #region Merits and Experience
@@ -52,6 +59,88 @@ public class MummyTemplate : CharTemplate
     public override void GenerateConcept()
     {
         base.GenerateConcept();
+    }
+    public void SetBalance()
+    {
+        int rand = Random.Range(1, 14);
+        balance = rand switch
+        {
+            1 => "Courageous",
+            2 => "Devoted",
+            3 => "Diligent",
+            4 => "Faithful",
+            5 => "Generous",
+            6 => "Introspective",
+            7 => "Just",
+            8 => "Noble",
+            9 => "Peaceful",
+            10 => "Resilient",
+            11 => "Righteous",
+            12 => "Trustworthy",
+            13 => "Truthful",
+            _ => "Courageous"
+        };
+    }
+    public void SetBurden()
+    {
+        int rand = Random.Range(1, 14);
+        burden = rand switch
+        {
+            1 => "Accusing",
+            2 => "Careless",
+            3 => "Chaotic",
+            4 => "Cruel",
+            5 => "Dominant",
+            6 => "Forgetful",
+            7 => "Fragile",
+            8 => "Hysterical",
+            9 => "Isolated",
+            10 => "Rageful",
+            11 => "Resentful",
+            12 => "Selfish",
+            13 => "Stagnant",
+            _ => "Accusing"
+        };
+    }
+    public void SetDecree()
+    {
+        int rand = Random.Range(1, 6);
+        decree = rand switch
+        {
+            1 => Decree.Ashem,
+            2 => Decree.Deshret,
+            3 => Decree.Kheru,
+            4 => Decree.Nesrem,
+            5 => Decree.Usheb,
+            _ => Decree.Ashem
+        };
+    }
+    public void SetGuild(int guildNum)
+    {
+        guild = guildNum switch
+        {
+            1 => Guild.MaaKep,
+            2 => Guild.MesenNebu,
+            3 => Guild.SheshaHebsu,
+            4 => Guild.SuMenent,
+            5 => Guild.TefAabhi,
+            _ => Guild.MaaKep
+        };
+    }
+    public void SetJudge()
+    {
+        int rand = Random.Range(1, 8);
+        judge = rand switch
+        {
+            1 => Judge.AmKhaibit,
+            2 => Judge.AremAbfu,
+            3 => Judge.Kenemti,
+            4 => Judge.Nebha,
+            5 => Judge.NehebKa,
+            6 => Judge.UnemBesek,
+            7 => Judge.UsekhNemtet,
+            _ => Judge.AmKhaibit
+        };
     }
     #endregion
     #region Getters

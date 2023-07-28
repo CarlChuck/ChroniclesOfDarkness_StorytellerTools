@@ -10,16 +10,23 @@ public class DemonTemplate : CharTemplate
 
     public override void CreateCharacter()
     {
+        SetRandomPriority();
         base.CreateCharacter();
-
-
-
+        SetVirtue();
+        SetVice();
+        SetName();
+        SetPotency();
+        AddExperience();
+        UpdateCharacter();
+        GenerateConcept();
         UIManager.Instance.UpdateGeneralUI(TemplateType.Demon);
     }
 
-    public void AddDemonTraits(int orderNum = 0)
+    public void AddDemonTraits(int agendaNum = 0)
     {
-
+        SetAgenda(agendaNum);
+        SetIncarnation();
+        SetCatalyst();
     }
 
     #region Merits and Experience
@@ -50,6 +57,38 @@ public class DemonTemplate : CharTemplate
     public override void GenerateConcept()
     {
         base.GenerateConcept();
+    }
+    private void SetIncarnation()
+    {
+        int rand = Random.Range(1, 5);
+        incarnation = rand switch
+        {
+            1 => Incarnation.Destroyer,
+            2 => Incarnation.Guardian,
+            3 => Incarnation.Messenger,
+            4 => Incarnation.Psychopomp,
+            _ => Incarnation.Destroyer
+        };
+    }
+    private void SetAgenda(int agendaNum = 0)
+    {
+        int num = agendaNum;
+        if (agendaNum == 0)
+        {
+            num = Random.Range(1, 5);
+        }
+        agenda = num switch
+        {
+            1 => Agenda.Inquisitor,
+            2 => Agenda.Integrator,
+            3 => Agenda.Saboteur,
+            4 => Agenda.Tempter,
+            _ => Agenda.Inquisitor
+        };
+    }
+    private void SetCatalyst()
+    {
+        catalyst = "";
     }
     #endregion
     #region Getters

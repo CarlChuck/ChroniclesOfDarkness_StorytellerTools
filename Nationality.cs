@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Nationality : MonoBehaviour
@@ -896,8 +897,9 @@ public class Nationality : MonoBehaviour
     {
         return setNation;
     }
-    public void SetNation(string inputNation)
+    public void SetNation(TextMeshProUGUI input)
     {
+        string inputNation = input.text;
         switch (inputNation)
         {
             case "America - North":

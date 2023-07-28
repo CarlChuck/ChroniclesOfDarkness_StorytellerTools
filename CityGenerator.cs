@@ -9,62 +9,350 @@ public class CityGenerator : MonoBehaviour
 {
     [SerializeField] private TMP_InputField cityName;
     [SerializeField] private TMP_InputField cityPopulation;
-    [SerializeField] private int cityPopAsint;
-    [SerializeField] private GameObject layoutGroup;
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private TemplateType tType;
+    private string filename = "";
 
-    string filename = "";
     public void Start()
     {
-
         filename = Application.dataPath + "/test.csv";
     }
 
-    /*
-    public void GenerateCity(int sect)
+    
+    public void SetSpecies(TextMeshProUGUI species)
     {
-        filename = Application.dataPath + "/" + cityName.text + ".csv";
-        UIManager.Instance.citySheet.SetActive(true);
-        int.TryParse(cityPopulation.text, out int result);
-        cityPopAsint = result;
-        if (sect == 1)
+        string sText = species.text;
+        tType = sText switch
         {
-            CamarillaCity();
+            "Vampire" => TemplateType.Vampire,
+            "Mage" => TemplateType.Mage,
+            "Changeling" => TemplateType.Changeling,
+            "Werewolf" => TemplateType.Werewolf,
+            "Geist" => TemplateType.Geist,
+            "Demon" => TemplateType.Demon,
+            "Promethean" => TemplateType.Promethean,
+            "Mummy" => TemplateType.Mummy,
+            "Beast" => TemplateType.Beast,
+            "Deviant" => TemplateType.Deviant,
+            "Hunter" => TemplateType.Hunter,
+            "Mortal" => TemplateType.Mortal,
+            "All" => TemplateType.None,
+            _ => TemplateType.None
+        };
+    }
+    public void GenerateCity()
+    {
+        switch (tType)
+        {
+            case TemplateType.Vampire:
+                GenerateVampireCity();
+                break;
+            case TemplateType.Mage:
+                GenerateMageCity();
+                break;
+            case TemplateType.Werewolf:
+                GenerateWerewolfCity();
+                break;
+            case TemplateType.Changeling:
+                GenerateChangelingCity();   
+                break;
+            case TemplateType.Geist:
+                GenerateGeistCity();
+                break;
+            case TemplateType.Demon:
+                GenerateDemonCity();    
+                break;
+            case TemplateType.Promethean:
+                GeneratePrometheanCity();
+                break;
+            case TemplateType.Mummy:
+                GenerateMummyCity();    
+                break;
+            case TemplateType.Beast:
+                GenerateBeastCity();    
+                break;
+            case TemplateType.Deviant:
+                GenerateDeviantCity();
+                break;
+            case TemplateType.Hunter:
+                GenerateHunterCity();   
+                break;
+            case TemplateType.Mortal:
+                GenerateMortalCity();
+                break;
+            case TemplateType.None:
+                GenerateVampireCity();
+                GenerateMageCity();
+                GenerateWerewolfCity();
+                GenerateChangelingCity();
+                GenerateGeistCity();
+                GenerateDemonCity();
+                GeneratePrometheanCity();
+                GenerateMummyCity();
+                GenerateBeastCity();
+                GenerateDeviantCity();
+                GenerateHunterCity();
+                GenerateMortalCity();
+                break;
         }
-        else if (sect == 2)
+    }
+    #region GeneratingCharacters
+    private void GenerateVampireCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        //Slight Difference on Vampire population depending on Nation
+        Nation nation = Nationality.Instance.GetNation();
+        if (nation == Nation.NorthAmerica || nation == Nation.EuropeEngland || nation == Nation.EuropeScotland || nation == Nation.EuropeWales || nation == Nation.EuropeFrance
+            || nation == Nation.EuropePortugal || nation == Nation.EuropeSpain || nation == Nation.EuropeIreland || nation == Nation.EuropeScandanavia || nation == Nation.AsiaWest)
         {
-            SabbatCity();
-        }
-        else if (sect == 3)
-        {
-            AnarchCity();
+            numberOfChars = inputPopulation / Random.Range(40000, 60000);
         }
         else
         {
-            IndependentCity();
+            numberOfChars = inputPopulation / Random.Range(60000, 100000);
         }
-        foreach (VampireTemplate character in CharGenerator.Instance.listOfCharacters)
-        {
-            string vampGender = character.GetGender();
-            string vampRank = "";
-            int vampAge = character.GetAge();
 
-            GameObject vamp = Instantiate(prefab, layoutGroup.transform);
-            ACityVampire vTemp = vamp.GetComponent<ACityVampire>();
-            vTemp.CreateCityVampire(character.GetName(), vampGender, vampRank, (int)character.embrace, vampAge, character.clan.clanName.ToString(), character.GetSire(), 
-                character.physicalStats[0].statValue, character.physicalStats[1].statValue, character.physicalStats[2].statValue, character.socialStats[0].statValue, 
-                character.socialStats[1].statValue, character.socialStats[2].statValue, character.mentalStats[0].statValue, character.mentalStats[1].statValue, 
-                character.mentalStats[2].statValue, character.GetGeneration(), character.willpower, character.humanityPath,0,0,0 );
+        //Generate the number of Vampires
+        for (int i= 0; i < numberOfChars; i++)
+        {
+            int rand;
+            if (TabManager.Instance.wodConversion == true)
+            {
+                rand = Random.Range(1, 12);
+            }
+            else
+            {
+                rand = Random.Range(1, 3);
+                if (rand == 1)
+                {
+                    rand = Random.Range(1, 6);
+                }
+                else
+                {
+                    rand = Random.Range(10, 12);
+                }
+            }
+            CharGenerator.Instance.GenerateVampire(rand, false);
         }
-        UIManager.Instance.SetVampireCity();
+        VampireToCSV();
     }
-    */
-    /*
-    public void ExportToCSV()
+    private void GenerateMageCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(80000, 120000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand;
+            if (TabManager.Instance.wodConversion == true)
+            {
+                rand = Random.Range(1, 9);
+            }
+            else
+            {
+                rand = Random.Range(1, 15);
+            }
+            CharGenerator.Instance.GenerateMage(rand, false);
+        }
+        MageToCSV();
+    }
+    private void GenerateWerewolfCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(80000, 120000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateWerewolf(rand, false);
+        }
+        WerewolfToCSV();
+    }
+    private void GenerateChangelingCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(80000, 120000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateWerewolf(rand, false);
+        }
+        WerewolfToCSV();
+    }
+    private void GenerateGeistCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(100000, 140000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateGeist(rand, false);
+        }
+        GeistToCSV();
+    }
+    private void GenerateDemonCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(100000, 140000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateDemon(rand, false);
+        }
+        DemonToCSV();
+    }
+    private void GeneratePrometheanCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(200000, 300000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GeneratePromethean(rand, false);
+        }
+        PrometheanToCSV();
+    }
+    private void GenerateMummyCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(200000, 300000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateMummy(rand, false);
+        }
+        MummyToCSV();
+    }
+    private void GenerateBeastCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(200000, 300000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateBeast(rand, false);
+        }
+        BeastToCSV();
+    }
+    private void GenerateDeviantCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(200000, 300000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateDeviant(rand, false);
+        }
+        DeviantToCSV();
+    }
+    private void GenerateHunterCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(100000, 140000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateHunter(rand, false);
+        }
+        HunterToCSV();
+    }
+    private void GenerateMortalCity()
+    {
+        filename = Application.dataPath + "/" + cityName.text + "_" + tType + ".csv";
+        int.TryParse(cityPopulation.text, out int inputPopulation);
+
+        CharGenerator.Instance.ClearAllCharacters();
+        int numberOfChars;
+
+        numberOfChars = inputPopulation / Random.Range(80000, 120000);
+
+        //Generate the characters
+        for (int i = 0; i < numberOfChars; i++)
+        {
+            int rand = Random.Range(1, 10);
+            CharGenerator.Instance.GenerateMortal(rand, false);
+        }
+        MortalToCSV();
+    }
+    #endregion
+    #region ExportToCSV
+    private void VampireToCSV()
     {
         if (CharGenerator.Instance.listOfCharacters.Count > 0)
         {
-            List<VampireTemplate> vampList = new List<VampireTemplate>();
+            List<VampireTemplate> vampList = new();
             foreach (CharTemplate ctemp in CharGenerator.Instance.listOfCharacters)
             {
                 VampireTemplate vtemp = (VampireTemplate)ctemp;
@@ -72,156 +360,137 @@ public class CityGenerator : MonoBehaviour
             }
 
             TextWriter tw = new StreamWriter(filename, false);
-            tw.WriteLine("Name, Gender, Embrace, Age, Clan, Sire, City, Strength, Dexterity, Stamina, Charisma, Manipulation, Appearance, Perception, Intelligence, Wits, Generation, Willpower, Humanity, Potence, Celerity, Fortitude, Animalism, Auspex, Dominate, Presence, Obfuscate, Protean, Dementation, Obtenebration, Quietus, Chimerstry, Serpentis, Vicissitude, Thaumaturgy, Necromancy, Ogham, Spiritus, Daimonion, Bardo, Flight, Visceratika, Melpominee, Mytherceria, Temporis, Obeah, Paths");
+            tw.WriteLine("Name, Gender, Embrace, Age, Clan, Bloodline, Covenant, Mask, Dirge, City, Strength, Dexterity, Stamina, Presence, Manipulation, Composure, " +
+                "Intelligence, Wits, Resolve, Potency, Willpower, Humanity, Size, Initiative, Speed, Defence, Health, Athletics, Brawl, Drive, Firearm, Larceny, Stealth, Survival, " +
+                "Weaponry, Animal Ken, Empathy, Expression, Intimidation, Persuasion, Socialise, Streetwise, Subterfuge, Academics, Computer, Crafts, Investigation, Medicine, Occult, " +
+                "Politics, Science, Vigor, Celerity, Resilience, Animalism, Obfuscate, Auspex, Dominate, Majesty, Nightmare, Protean, " +
+                "Coils Of The Dragon, Cruac Sorcery, Theban Sorcery, Ahranite Sorcery, Thanatology");
             tw.Close();
             tw = new StreamWriter(filename, true);
             foreach (VampireTemplate vTemp in vampList)
             {
                 string vName = vTemp.GetName();
-                string Gender = vTemp.gender;
-                string Embrace = vTemp.embrace.ToString();
-                string Age = vTemp.age.ToString();
-                string Clan = vTemp.clan.clanName.ToString();
-                string Sire = vTemp.GetSire();
-                string City = cityName.text;
-                string Strength = vTemp.GetStatValue("Strength", vTemp.physicalStats);
-                string Dexterity = vTemp.GetStatValue("Dexterity", vTemp.physicalStats);
-                string Stamina = vTemp.GetStatValue("Stamina", vTemp.physicalStats);
-                string Charisma = vTemp.GetStatValue("Charisma", vTemp.socialStats);
-                string Manipulation = vTemp.GetStatValue("Manipulation", vTemp.socialStats);
-                string Appearance = vTemp.GetStatValue("Appearance", vTemp.socialStats);
-                string Perception = vTemp.GetStatValue("Perception", vTemp.mentalStats);
-                string Intelligence = vTemp.GetStatValue("Intelligence", vTemp.mentalStats);
-                string Wits = vTemp.GetStatValue("Wits", vTemp.mentalStats);
-                string Generation = vTemp.GetGeneration();
-                string Willpower = vTemp.willpower.ToString();
-                string Humanity = vTemp.humanityPath.ToString();
-                string Potence = vTemp.GetStatValue("Potence", vTemp.disciplines);
-                string Celerity = vTemp.GetStatValue("Celerity", vTemp.disciplines);
-                string Fortitude = vTemp.GetStatValue("Fortitude", vTemp.disciplines);
-                string Animalism = vTemp.GetStatValue("Animalism", vTemp.disciplines);
-                string Auspex = vTemp.GetStatValue("Auspex", vTemp.disciplines);
-                string Dominate = vTemp.GetStatValue("Dominate", vTemp.disciplines);
-                string Presence = vTemp.GetStatValue("Presence", vTemp.disciplines);
-                string Obfuscate = vTemp.GetStatValue("Obfuscate", vTemp.disciplines);
-                string Protean = vTemp.GetStatValue("Protean", vTemp.disciplines);
-                string Dementation = vTemp.GetStatValue("Dementation", vTemp.disciplines);
-                string Obtenebration = vTemp.GetStatValue("Obtenebration", vTemp.disciplines);
-                string Quietus = vTemp.GetStatValue("Quietus", vTemp.disciplines);
-                string Chimerstry = vTemp.GetStatValue("Chimerstry", vTemp.disciplines);
-                string Serpentis = vTemp.GetStatValue("Serpentis", vTemp.disciplines);
-                string Vicissitude = vTemp.GetStatValue("Vicissitude", vTemp.disciplines);
-                string Thaumaturgy = vTemp.GetStatValue("Thaumaturgy", vTemp.disciplines);
-                string Necromancy = vTemp.GetStatValue("Necromancy", vTemp.disciplines);
-                string Ogham = vTemp.GetStatValue("Ogham", vTemp.disciplines);
-                string Spiritus = vTemp.GetStatValue("Spiritus", vTemp.disciplines);
-                string Daimonion = vTemp.GetStatValue("Daimonion", vTemp.disciplines);
-                string Bardo = vTemp.GetStatValue("Bardo", vTemp.disciplines);
-                string Flight = vTemp.GetStatValue("Flight", vTemp.disciplines);
-                string Visceratika = vTemp.GetStatValue("Visceratika", vTemp.disciplines);
-                string Melpominee = vTemp.GetStatValue("Melpominee", vTemp.disciplines);
-                string Mytherceria = vTemp.GetStatValue("Mytherceria", vTemp.disciplines);
-                string Temporis = vTemp.GetStatValue("Temporis", vTemp.disciplines);
-                string Obeah = vTemp.GetStatValue("Obeah", vTemp.disciplines);
+                string gender = vTemp.GetGender();
+                string embrace = vTemp.GetEmbraceYear().ToString();
+                string age = vTemp.age.ToString();
+                string clan = vTemp.GetClan().ToString();
+                string bloodline = vTemp.GetBloodline().ToString();
+                string covenant = vTemp.GetCovenant().ToString();
+                string mask = vTemp.GetMask().ToString();
+                string dirge = vTemp.GetDirge().ToString();
+                string city = cityName.text;
+                string strength = vTemp.strength.GetStatValue().ToString();
+                string dexterity = vTemp.dexterity.GetStatValue().ToString();
+                string stamina = vTemp.stamina.GetStatValue().ToString();
+                string presence = vTemp.presence.GetStatValue().ToString();
+                string manipulation = vTemp.manipulation.GetStatValue().ToString();
+                string composure = vTemp.composure.GetStatValue().ToString();
+                string intelligence = vTemp.intelligence.GetStatValue().ToString();
+                string wits = vTemp.wits.GetStatValue().ToString();
+                string resolve = vTemp.resolve.GetStatValue().ToString();
+                string potency = vTemp.GetPotency().ToString();
+                string willpower = vTemp.willpower.ToString();
+                string humanity = vTemp.integrity.ToString();
+                string size = vTemp.size.ToString();
+                string initiative = vTemp.initiative.ToString();
+                string speed = vTemp.speed.ToString();
+                string defence = vTemp.defence.ToString();
+                string health = vTemp.health.ToString();
+                string athletics = vTemp.athletics.GetStatValue().ToString();
+                string brawl = vTemp.brawl.GetStatValue().ToString();
+                string drive = vTemp.drive.GetStatValue().ToString();
+                string firearm = vTemp.firearms.GetStatValue().ToString();
+                string larceny = vTemp.larceny.GetStatValue().ToString();
+                string stealth = vTemp.stealth.GetStatValue().ToString();
+                string survival = vTemp.survival.GetStatValue().ToString();
+                string weaponry = vTemp.weaponry.GetStatValue().ToString();
+                string animalKen = vTemp.animalKen.GetStatValue().ToString();
+                string empathy = vTemp.empathy.GetStatValue().ToString();
+                string expression = vTemp.expression.GetStatValue().ToString();
+                string intimidation = vTemp.intimidation.GetStatValue().ToString();
+                string persuasion = vTemp.persuasion.GetStatValue().ToString();
+                string socialise = vTemp.socialise.GetStatValue().ToString();
+                string streetwise = vTemp.streetwise.GetStatValue().ToString();
+                string subterfuge = vTemp.subterfuge.GetStatValue().ToString();
+                string academics = vTemp.academics.GetStatValue().ToString();
+                string computer = vTemp.computer.GetStatValue().ToString();
+                string crafts = vTemp.crafts.GetStatValue().ToString();
+                string investigation = vTemp.investigation.GetStatValue().ToString();
+                string medicine = vTemp.medicine.GetStatValue().ToString();
+                string occult = vTemp.occult.GetStatValue().ToString();
+                string politics = vTemp.politics.GetStatValue().ToString();
+                string science = vTemp.science.GetStatValue().ToString();
+                string vigor = vTemp.vigor.GetStatValue().ToString();
+                string celerity = vTemp.celerity.GetStatValue().ToString();
+                string resilience = vTemp.resilience.GetStatValue().ToString();
+                string animalism = vTemp.animalism.GetStatValue().ToString();
+                string obfuscate = vTemp.obfuscate.GetStatValue().ToString();
+                string auspex = vTemp.auspex.GetStatValue().ToString();
+                string dominate = vTemp.dominate.GetStatValue().ToString();
+                string majesty = vTemp.majesty.GetStatValue().ToString();
+                string nightmare = vTemp.nightmare.GetStatValue().ToString();
+                string protean = vTemp.protean.GetStatValue().ToString();
+                string coilsOfTheDragon = vTemp.coilsOfTheDragon.GetStatValue().ToString();
+                string cruacSorcery = vTemp.cruacSorcery.GetStatValue().ToString();
+                string thebanSorcery = vTemp.thebanSorcery.GetStatValue().ToString();
+                string ahraniteSorcery = vTemp.ahraniteSorcery.GetStatValue().ToString();
+                string thanatology = vTemp.thanatology.GetStatValue().ToString();
 
-
-                tw.WriteLine(vName + "," + Gender + "," + Embrace + "," + Age + "," + Clan + "," + Sire + "," + City + "," + Strength + "," + Dexterity + "," + Stamina + "," + Charisma + "," + Manipulation + "," + Appearance + "," + Perception + "," + Intelligence + "," + Wits + "," + Generation + "," + Willpower + "," + Humanity + "," + Potence + "," + Celerity + "," + Fortitude + "," + Animalism + "," + Auspex + "," + Dominate + "," + Presence + "," + Obfuscate + "," + Protean + "," + Dementation + "," + Obtenebration + "," + Quietus + "," + Chimerstry + "," + Serpentis + "," + Vicissitude + "," + Thaumaturgy + "," + Necromancy + "," + Ogham + "," + Spiritus + "," + Daimonion + "," + Bardo + "," + Flight + "," + Visceratika + "," + Melpominee + "," + Mytherceria + "," + Temporis + "," + Obeah);
-
+                tw.WriteLine(vName + "," + gender + "," + embrace + "," + age + "," + clan + "," + bloodline + "," + covenant + "," + mask + "," + dirge + "," + city + ","
+                    + strength + "," + dexterity + "," + stamina + "," + presence + "," + manipulation + "," + composure + "," + intelligence + "," + wits + "," + resolve + ","
+                    + potency + "," + willpower + "," + humanity + "," + size + "," + initiative + "," + speed + "," + defence + "," + health + ","
+                    + athletics + "," + brawl + "," + drive + "," + firearm + "," + larceny + "," + stealth + "," + survival + "," + weaponry + "," + animalKen + "," + empathy + ","
+                    + expression + "," + intimidation + "," + persuasion + "," + socialise + "," + streetwise + "," + subterfuge + "," + academics + "," + computer + "," + crafts + ","
+                    + investigation + "," + medicine + "," + occult + "," + politics + "," + science + ","
+                    + vigor + "," + celerity + "," + resilience + "," + animalism + "," + obfuscate + "," + auspex + "," + dominate + "," + majesty + "," + nightmare + "," + protean + ","
+                    + coilsOfTheDragon + "," + cruacSorcery + "," + thebanSorcery + "," + ahraniteSorcery + "," + thanatology);
             }
             tw.Close();
         }
-    }*/
-
-    public void CamarillaCity()
-    {
-        CharGenerator.Instance.ClearAllCharacters();
-        int numberOfVamps;
-        Nation nation = Nationality.Instance.GetNation();
-        if (nation == Nation.NorthAmerica || nation == Nation.EuropeEngland || nation == Nation.EuropeScotland || nation == Nation.EuropeWales || nation == Nation.EuropeFrance
-            || nation == Nation.EuropePortugal || nation == Nation.EuropeSpain || nation == Nation.EuropeIreland || nation == Nation.EuropeScandanavia || nation == Nation.AsiaWest)
-        {
-            numberOfVamps = cityPopAsint / Random.Range(40000, 60000);
-        }
-        else
-        {
-            numberOfVamps = cityPopAsint / Random.Range(60000, 100000);
-        }
-
-
-        for (int i= 0; i < numberOfVamps; i++)
-        {
-            int rand = Random.Range(1, 21);
-            if (rand == 1)
-            {
-                CharGenerator.Instance.GenerateRandomVampire(4);
-            }
-            else
-            {
-                CharGenerator.Instance.GenerateRandomVampire(1);
-            }
-        }
     }
-    public void SabbatCity()
+    private void MageToCSV()
     {
-        CharGenerator.Instance.ClearAllCharacters();
-        int numberOfVamps;
-        Nation nation = Nationality.Instance.GetNation();
-        if (nation == Nation.NorthAmerica)
-        {
-            numberOfVamps = cityPopAsint / Random.Range(10000, 40000); ;
-        }
-        else
-        {
-            numberOfVamps = cityPopAsint / Random.Range(40000, 80000);
-        }
 
-        for (int i = 0; i < numberOfVamps; i++)
-        {
-            int rand = Random.Range(1, 21);
-            if (rand == 1)
-            {
-                CharGenerator.Instance.GenerateRandomVampire(4);
-            }
-            else
-            {
-                CharGenerator.Instance.GenerateRandomVampire(2);
-            }
-        }
     }
-    public void AnarchCity()
+    private void WerewolfToCSV()
     {
-        CharGenerator.Instance.ClearAllCharacters();
-        int numberOfVamps;
-        Nation nation = Nationality.Instance.GetNation();
-        if (nation == Nation.NorthAmerica)
-        {
-            numberOfVamps = cityPopAsint / Random.Range(30000, 60000);
-        }
-        else
-        {
-            numberOfVamps = cityPopAsint / Random.Range(60000, 80000);
-        }
 
-        for (int i = 0; i < numberOfVamps; i++)
-        {
-            int rand = Random.Range(1, 21);
-            if (rand == 1)
-            {
-                CharGenerator.Instance.GenerateRandomVampire(4);
-            }
-            else
-            {
-                CharGenerator.Instance.GenerateRandomVampire(3);
-            }
-        }
     }
-    public void IndependentCity()
+    private void ChangelingToCSV()
     {
-        CharGenerator.Instance.ClearAllCharacters();
-        int numberOfVamps = cityPopAsint / Random.Range(60000, 80000);
-        for (int i = 0; i < numberOfVamps; i++)
-        {
-            CharGenerator.Instance.GenerateRandomVampire(4);
-        }
+
     }
+    private void GeistToCSV()
+    {
+
+    }
+    private void DemonToCSV()
+    {
+
+    }
+    private void PrometheanToCSV()
+    {
+
+    }
+    private void MummyToCSV()
+    {
+
+    }
+    private void BeastToCSV()
+    {
+
+    }
+    private void DeviantToCSV()
+    {
+
+    }
+    private void HunterToCSV()
+    {
+
+    }
+    private void MortalToCSV()
+    {
+
+    }
+    #endregion
 }
