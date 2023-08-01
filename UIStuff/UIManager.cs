@@ -55,7 +55,10 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] public GameObject citySheet;
 
-
+    public void Start()
+    {
+        Screen.SetResolution(1440, 810, false);
+    }
     public Color GetColour()
     {
         return selectedColour;

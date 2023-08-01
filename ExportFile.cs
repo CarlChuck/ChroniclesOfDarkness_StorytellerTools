@@ -22,9 +22,11 @@ public class ExportFile : MonoBehaviour
 
     //Object To Screenshot
     [SerializeField] private RectTransform _objToScreenshot;
+    [SerializeField] private GameObject loadingScreen;
 
     public void OnClickTakeScreenshotAndSaveButton()
     {
+
         StartCoroutine(TakeSnapShotAndSave());
     }
     //Using a Coroutine instead of normal method
@@ -49,18 +51,21 @@ public class ExportFile : MonoBehaviour
         Texture2D ss = new Texture2D(width, height, TextureFormat.RGB24, false);
         ss.ReadPixels(new Rect(startX, startY, width, height), 0, 0);
         ss.Apply();
-        //Debug.Log("Start X : " + startX + " Start Y : " + startY);
-        //Debug.Log("Screen Width : " + Screen.width + " Screen Height : " + Screen.height);
-        //Debug.Log("Texture Width : " + width + " Texture Height : " + height);
 
         //Save the screenshot to disk
         byte[] byteArray = ss.EncodeToPNG();
         string savePath = Application.persistentDataPath + "/" + nameOfCharacter + ".png";
         System.IO.File.WriteAllBytes(savePath, byteArray);
-        Debug.Log("Screenshot Path : " + savePath);
 
         // Destroy texture to avoid memory leaks
         Destroy(ss);
+        loadingScreen.SetActive(true);
+        StartCoroutine(EndLoadingScreen(loadingScreen, 0.5f));
     }
 
+    public IEnumerator EndLoadingScreen(GameObject load, float time = 1f)
+    {
+        yield return new WaitForSeconds(time);
+        load.SetActive(false);
+    }
 }

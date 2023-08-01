@@ -11,16 +11,16 @@ public class MageTemplate : CharTemplate
     private MageOrder mOrder;
 
     #region Spheres
-    private CharStat death;
-    private CharStat fate;
-    private CharStat forces;
-    private CharStat life;
-    private CharStat matter;
-    private CharStat mind;
-    private CharStat prime;
-    private CharStat space;
-    private CharStat spirit;
-    private CharStat time;
+    public CharStat death;
+    public CharStat fate;
+    public CharStat forces;
+    public CharStat life;
+    public CharStat matter;
+    public CharStat mind;
+    public CharStat prime;
+    public CharStat space;
+    public CharStat spirit;
+    public CharStat time;
     private List<CharStat> sphereList;
     #endregion
 

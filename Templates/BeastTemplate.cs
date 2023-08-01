@@ -62,23 +62,58 @@ public class BeastTemplate : CharTemplate
     }
     public void SetLegend()
     {
-
+        int rand = Random.Range(1, 6);
+        legend = rand switch
+        {
+            1 => "Relentless",
+            2 => "Seductive",
+            3 => "Unexpected",
+            4 => "Vicious",
+            5 => "Watchful",
+            _ => ""
+        };
     }
     public void SetLife()
     {
-
+        int rand = Random.Range(1, 6);
+        life = rand switch
+        {
+            1 => "Cautious",
+            2 => "Honest",
+            3 => "Loyal",
+            4 => "Parental",
+            5 => "Shy",
+            _ => ""
+        };
     }
     public void SetFamily(int famNum)
     {
-
+        family = famNum switch
+        {
+            1 => Family.Anakim,
+            2 => Family.Eshmaki,
+            3 => Family.Makara,
+            4 => Family.Namtaru,
+            5 => Family.Ugallu,
+            _ => Family.Anakim
+        };
     }
     public void SetHunger()
     {
-
+        int rand = Random.Range(1, 6);
+        hunger = rand switch
+        {
+            1 => Hunger.Prey,
+            2 => Hunger.Hoard,
+            3 => Hunger.Power,
+            4 => Hunger.Punishment,
+            5 => Hunger.Ruin,
+            _ => Hunger.Prey
+        };
     }
     public void SetHorror()
     {
-
+        horror = ""; //TODO
     }
     #endregion
     #region Getters
